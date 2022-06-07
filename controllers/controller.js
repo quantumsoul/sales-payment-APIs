@@ -1,11 +1,9 @@
-const User = require('../models/usermodel')
 const Salestransaction = require('../models/salesTransaction')
 const Paymenttransaction = require('../models/paymentTransaction')
+const jwt = require('jsonwebtoken')
 exports.Login = async (req,res)=>{
     try {
-        var user;
-        const user = await User.findByCredentials(req.body.username, req.body.password)
-        const token = await user.generateAuthToken();
+        const token = jwt.sign({username:req.body.username, password:req.body.password},process.env.JWT_SECRET);
         const obj = {
             access_token: token,
             token_type:"bearer",
@@ -17,50 +15,28 @@ exports.Login = async (req,res)=>{
     }
 }
 exports.salesTransactionEntry = async(req,res)=>{
-    const salesTransaction = new Salestransaction({
-        ...req.body,
-        owner:req.user._id
-    })
+    const salesTransaction = new Salestransaction(req.body)
     try {
         await salesTransaction.save()
-        res.status(201)
-    } catch (error) {
-        res.status(400)
-    }
-}
-exports.getSalesTransaction = async(req,res)=>{
-    try {
-        const salesTransaction = await Salestransaction.findOne({owner:req.user._id})
-        res.status(200).json({
+        res.status(201).json({
             transaction:{
                 salesTransaction
             }
         })
     } catch (error) {
-        res.status(400)
+        res.status(400).send()
     }
 }
 exports.paymentTransactionEntry = async(req,res)=>{
-    const paymentTransaction = new Paymenttransaction({
-        ...req.body,
-        owner:req.user._id
-    })
+    const paymentTransaction = new Paymenttransaction(req.body)
     try {
         await paymentTransaction.save()
-        res.status(201)
-    } catch (error) {
-        res.status(400)
-    }
-}
-exports.getPaymentTransaction = async(req,res)=>{
-    try {
-        const paymentTransaction = await Paymenttransaction.findOne({owner:req.user._id})
-        res.status(200).json({
+        res.status(201).json({
             transaction:{
                 paymentTransaction
             }
         })
     } catch (error) {
-        res.status(400)
+        res.status(400).send()
     }
 }

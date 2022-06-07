@@ -15,11 +15,6 @@ const paymentTransactionSchema = new mongoose.Schema({
     DOC_DT:{
         type: String,
         required: true,
-        validate(value){
-            if(!validator.isDate(value)){
-                throw new Error('Date format is wrong!')
-            }
-        },
         trim: true
     },
     Instrument_No:{
@@ -30,11 +25,6 @@ const paymentTransactionSchema = new mongoose.Schema({
     Instrument_Dt:{
         type: String,
         required: true,
-        validate(value){
-            if(!validator.isDate(value)){
-                throw new Error('Date format is wrong!')
-            }
-        },
         trim: true
     },
     Narration:{
@@ -104,12 +94,7 @@ const paymentTransactionSchema = new mongoose.Schema({
                 trim: true
             }
         }
-    ],
-    owner:{
-        type: mongoose.Schema.Types.ObjectId,
-        required:true,
-        ref: 'User'
-    }
+    ]
 })
 const Paymenttransaction = mongoose.model("Paymenttransaction",paymentTransactionSchema);
 module.exports = Paymenttransaction;

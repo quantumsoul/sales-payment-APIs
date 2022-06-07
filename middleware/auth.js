@@ -3,16 +3,14 @@ const User = require('../models/usermodel')
 const auth = async (req,res,next)=>{
     try {
         const token = req.header('Authorization').replace('Bearer ','')
-        const decoded = jwt.verify(token,'internshiptask')
-        const user = await User.findOne({id:decoded._id,'tokens.token':token})
-        if(!user){
+        const decoded = jwt.verify(token,process.env.JWT_SECRET)
+        if(!decoded){
             throw new Error()
         }
-        req.token = token
-        req.user = user
     } catch (error) {
-        res.status(401).send({error:'Please authenticate'})
+        res.status(401).send()
     }
+    console.log("decoded")
     next()
 }
 module.exports = auth

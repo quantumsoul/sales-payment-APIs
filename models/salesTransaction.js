@@ -15,11 +15,6 @@ const salesTransactionSchema = new mongoose.Schema({
     BILL_DT:{
         type: String,
         required: true,
-        validate(value){
-            if(!validator.isDate(value)){
-                throw new Error('Date format is wrong!')
-            }
-        },
         trim: true
     },
     CUSTOMER:{
@@ -222,12 +217,7 @@ const salesTransactionSchema = new mongoose.Schema({
             required: true,
             trim: true
         }
-    }],
-    owner:{
-        type: mongoose.Schema.Types.ObjectId,
-        required:true,
-        ref: 'User'
-    }
+    }]
 })
 const Salestransaction = mongoose.model("Salestransaction",salesTransactionSchema);
 module.exports = Salestransaction;

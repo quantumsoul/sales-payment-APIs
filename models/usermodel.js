@@ -28,16 +28,16 @@ const userSchema = new mongoose.Schema({
         }
     }]
 })
-userSchema.virtual('salesTransaction',{
-    ref:'Salestransaction',
-    localField:'_id',
-    foreignField:'owner'
-})
-userSchema.virtual('paymentTransaction',{
-    ref:'Paymenttransaction',
-    localField:'_id',
-    foreignField:'owner'
-})
+// userSchema.virtual('salesTransaction',{
+//     ref:'Salestransaction',
+//     localField:'_id',
+//     foreignField:'owner'
+// })
+// userSchema.virtual('paymentTransaction',{
+//     ref:'Paymenttransaction',
+//     localField:'_id',
+//     foreignField:'owner'
+// })
 userSchema.methods.generateAuthToken = async function(){
     const user = this;
     const token = jwt.sign({username:user.username, password:user.password},"internshiptask");
