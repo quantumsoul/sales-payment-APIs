@@ -142,12 +142,12 @@ const salesTransactionSchema = new mongoose.Schema({
         required: true,
         trim: true
     },
-    'Cgst2.5_Amt':{
+    Cgst2_5_Amt:{
         type: Number,
         required: true,
         trim: true
     },
-    'Sgst2.5_Amt':{
+    Sgst2_5_Amt:{
         type: Number,
         required: true,
         trim: true

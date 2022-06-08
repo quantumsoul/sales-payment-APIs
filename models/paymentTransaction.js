@@ -54,7 +54,7 @@ const paymentTransactionSchema = new mongoose.Schema({
                 required: true,
                 trim: true
             },
-            'billallocation.list':[{
+            billallocation_list:[{
                 reference_name:{
                     type: String,
                     required: true,
