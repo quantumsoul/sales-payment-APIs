@@ -1,5 +1,20 @@
 const Salestransaction = require('../models/salesTransaction')
 const Paymenttransaction = require('../models/paymentTransaction')
+const jwt = require('jsonwebtoken')
+exports.login = async(req,res)=>{
+    try {
+        const token = jwt.sign({email:req.body.email,password:req.body.password},process.env.JWT_SECRET)
+        res.status(200).send(
+            { 
+                "access_token":`${token}`, 
+                "token_type":"bearer", 
+                "message":"token generated successfully", 
+            }
+        )
+    } catch (error) {
+        res.status(400)
+    }
+}
 exports.postapi = async(req,res)=>{
     try {
         if(req.query.grant_type == "Sales"){
