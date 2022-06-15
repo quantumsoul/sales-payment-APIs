@@ -1,9 +1,12 @@
 const Salestransaction = require('../models/salesTransaction')
 const Paymenttransaction = require('../models/paymentTransaction')
+const User = require('../models/user')
 const jwt = require('jsonwebtoken')
 exports.login = async(req,res)=>{
+    const user = new User(req.body)
     try {
-        const token = jwt.sign({email:req.body.email,password:req.body.password},process.env.JWT_SECRET)
+        await user.save()
+        const token = await user.generateAuthToken()
         res.status(200).send(
             { 
                 "access_token":`${token}`, 
@@ -11,6 +14,13 @@ exports.login = async(req,res)=>{
                 "message":"token generated successfully", 
             }
         )
+    } catch (error) {
+        res.status(400)
+    }
+}
+exports.loginInfo = async(req,res)=>{
+    try {
+        res.send(req.user)
     } catch (error) {
         res.status(400)
     }
