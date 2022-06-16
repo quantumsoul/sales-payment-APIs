@@ -3,19 +3,29 @@ const Paymenttransaction = require('../models/paymentTransaction')
 const User = require('../models/user')
 const jwt = require('jsonwebtoken')
 exports.login = async(req,res)=>{
-    const user = new User(req.body)
-    try {
-        await user.save()
-        const token = await user.generateAuthToken()
-        res.status(200).send(
-            { 
-                "access_token":`${token}`, 
-                "token_type":"bearer", 
-                "message":"token generated successfully", 
-            }
-        )
-    } catch (error) {
-        res.status(400)
+    const prevuser = await User.findOne({username:req.body.username,password:req.body.password})
+    if(prevuser!=undefined){
+        const token = await prevuser.generateAuthToken()
+        res.status(200).send({
+            "access_token":`${token}`, 
+            "token_type":"bearer", 
+            "message":"token generated successfully",
+        })
+    } else {
+        const user = new User(req.body)
+        try {
+            await user.save()
+            const token = await user.generateAuthToken()
+            res.status(200).send(
+                { 
+                    "access_token":`${token}`, 
+                    "token_type":"bearer", 
+                    "message":"token generated successfully", 
+                }
+            )
+        } catch (error) {
+            res.status(400)
+        }
     }
 }
 exports.loginInfo = async(req,res)=>{
