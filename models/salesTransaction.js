@@ -217,7 +217,7 @@ const salesTransactionSchema = new mongoose.Schema({
             required: true,
             trim: true
         }
-    }],
-},{id:false, versionKey:false})
+    },],
+},{_id:false, versionKey:false})
 const Salestransaction = mongoose.model("Salestransaction",salesTransactionSchema);
 module.exports = Salestransaction;
