@@ -95,6 +95,6 @@ const paymentTransactionSchema = new mongoose.Schema({
             }
         }
     ]
-},{_id:false, versionKey:false})
+},{versionKey:false})
 const Paymenttransaction = mongoose.model("Paymenttransaction",paymentTransactionSchema);
 module.exports = Paymenttransaction;
