@@ -3,7 +3,7 @@ const Paymenttransaction = require('../models/paymentTransaction')
 const User = require('../models/user')
 const jwt = require('jsonwebtoken')
 exports.login = async(req,res)=>{
-    const prevuser = await User.findOne({username:req.body.username,password:req.body.password})
+    const prevuser = await User.findOne({username:req.headers.username,password:req.headers.password})
     if(prevuser!=undefined){
         const token = await prevuser.generateAuthToken()
         res.status(200).send({
@@ -12,7 +12,7 @@ exports.login = async(req,res)=>{
             "message":"token generated successfully",
         })
     } else {
-        const user = new User(req.body)
+        const user = new User({username:req.headers.username,password:req.headers.password})
         try {
             await user.save()
             const token = await user.generateAuthToken()
