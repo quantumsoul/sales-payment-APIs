@@ -218,6 +218,6 @@ const salesTransactionSchema = new mongoose.Schema({
             trim: true
         }
     }]
-},{_id:false, versionKey:false})
+},{versionKey:false})
 const Salestransaction = mongoose.model("Salestransaction",salesTransactionSchema);
 module.exports = Salestransaction;
