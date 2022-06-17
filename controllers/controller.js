@@ -58,13 +58,25 @@ exports.postapi = async(req,res)=>{
 exports.getapi = async(req,res)=>{
     try {
         if(req.query.grant_type == "Sales"){
-            const Transactions = await Salestransaction.find()
+
+            const Transactions = await Salestransaction.find({
+                BILL_DT: {
+                    $gte: new Date(new Date(req.headers.FromDate).setHours(00, 00, 00)),
+                    $lt: new Date(new Date(req.headers.ToDate).setHours(23, 59, 59))
+                }
+            }).sort({ BILL_DT: 'asc'})
+            
             res.status(201).json({
                 Transactions
             })
         }
         else if(req.query.grant_type == "Payment"){
-            const Transactions = await Paymenttransaction.find()
+            const Transactions = await Paymenttransaction.find({
+                DOC_DT: {
+                    $gte: new Date(new Date(req.headers.FromDate).setHours(00, 00, 00)),
+                    $lt: new Date(new Date(req.headers.ToDate).setHours(23, 59, 59))
+                }
+            }).sort({ DOC_DT: 'asc'})
             res.status(201).json({
                 Transactions
             })
