@@ -58,9 +58,9 @@ exports.postapi = async(req,res)=>{
 exports.getapi = async(req,res)=>{
     try {
         if(req.query.grant_type == "Sales"){
-            var b = req.headers.FromDate.split('-')
+            var b = req.headers.FromDate.toString().split('-')
             var fromDate = b[2] + '-' + b[1] + '-' + b[0]
-            var c = req.headers.ToDate.split('-')
+            var c = req.headers.ToDate.toString().split('-')
             var toDate = c[2] + '-' + c[1] + '-' + c[0]
             const Transactions = await Salestransaction.find({
                 BILL_DT: {
