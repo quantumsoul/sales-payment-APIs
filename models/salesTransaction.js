@@ -63,7 +63,7 @@ const salesTransactionSchema = new mongoose.Schema({
         required: true,
         trim: true
     },
-    GSTNo:{
+    TRN_No:{
         type: String,
         required: true,
         trim: true
