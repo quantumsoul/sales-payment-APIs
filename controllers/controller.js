@@ -78,10 +78,12 @@ exports.getapi = async(req,res)=>{
             var fromDate = b[2] + '-' + b[1] + '-' + b[0]
             var c = req.headers.ToDate.split('-')
             var toDate = c[2] + '-' + c[1] + '-' + c[0]
+            var fd = new Date(fromDate)
+            var td = new Date(toDate)
             const Transactions = await Paymenttransaction.find({
                 DOC_DT: {
-                    $gte: new Date(new Date(fromDate).setHours(00, 00, 00)),
-                    $lt: new Date(new Date(toDate).setHours(23, 59, 59))
+                    $gte: new Date(new Date(fd).setHours(00, 00, 00)),
+                    $lt: new Date(new Date(td).setHours(23, 59, 59))
                 }
             }).sort({ DOC_DT: 'asc'})
             res.status(201).json({
