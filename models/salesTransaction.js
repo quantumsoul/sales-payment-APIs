@@ -143,7 +143,7 @@ const salesTransactionSchema = new mongoose.Schema({
             required: true,
             trim: true
         },
-        GSTRate:{
+        TRNRate:{
             type: Number,
             required: true,
             trim: true
