@@ -93,75 +93,24 @@ const salesTransactionSchema = new mongoose.Schema({
         required: true,
         trim: true
     },
-    TotalGST_Amt:{
+    TotalTax_Amt:{
         type: Number,
         required: true,
         trim: true
     },
-    Igst28_Amt:{
+    Vat5_Amt:{
         type: Number,
         required: true,
         trim: true
     },
-    Igst18_Amt:{
+    Vat0_Amt:{
         type: Number,
         required: true,
         trim: true
     },
-    Igst12_Amt:{
-        type: Number,
-        required: true,
-        trim: true
-    },
-    Igst5_Amt:{
-        type: Number,
-        required: true,
-        trim: true
-    },
-    Cgst14_Amt:{
-        type: Number,
-        required: true,
-        trim: true
-    },
-    Sgst14_Amt:{
-        type: Number,
-        required: true,
-        trim: true
-    },
-    Cgst9_Amt:{
-        type: Number,
-        required: true,
-        trim: true
-    },
-    Sgst9_Amt:{
-        type: Number,
-        required: true,
-        trim: true
-    },
-    Cgst6_Amt:{
-        type: Number,
-        required: true,
-        trim: true
-    },
-    Sgst6_Amt:{
-        type: Number,
-        required: true,
-        trim: true
-    },
-    Cgst2_5_Amt:{
-        type: Number,
-        required: true,
-        trim: true
-    },
-    Sgst2_5_Amt:{
-        type: Number,
-        required: true,
-        trim: true
-    },
-    TCS_Amt:{
-        type: Number,
-        required: true,
-        trim: true
+    Tax_Exempt:{
+        type: Boolean,
+        required: true
     },
     Roundoff_amt:{
         type: Number,
