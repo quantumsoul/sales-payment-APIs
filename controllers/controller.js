@@ -1,5 +1,6 @@
 const Salestransaction = require('../models/salesTransaction')
 const Paymenttransaction = require('../models/paymentTransaction')
+const Purchasetransaction = require('../models/purchaseTransaction')
 const User = require('../models/user')
 const jwt = require('jsonwebtoken')
 exports.login = async(req,res)=>{
@@ -51,6 +52,13 @@ exports.postapi = async(req,res)=>{
                 Transaction
             })
         }
+        else if(req.query.grant_type == "Purchase"){
+            const Transaction = new Purchasetransaction(req.body)
+            await Transaction.save()
+            res.status(201).json({
+                Transaction
+            })
+        }
     } catch (error) {
         res.status(400).send()
     }
@@ -79,6 +87,21 @@ exports.getapi = async(req,res)=>{
             var c = req.headers.todate.split('-')
             var toDate = c[2] + '-' + c[1] + '-' + c[0]
             const Transactions = await Paymenttransaction.find({
+                DOC_DT: {
+                    $gte: new Date(new Date(fromDate).setHours(00, 00, 00)),
+                    $lt: new Date(new Date(toDate).setHours(23, 59, 59))
+                }
+            }).sort({ DOC_DT: 'asc'})
+            res.status(201).json({
+                Transactions
+            })
+        }
+        else if(req.query.grant_type == "Purchase"){
+            var b = req.headers.fromdate.split('-')
+            var fromDate = b[2] + '-' + b[1] + '-' + b[0]
+            var c = req.headers.todate.split('-')
+            var toDate = c[2] + '-' + c[1] + '-' + c[0]
+            const Transactions = await Purchasetransaction.find({
                 DOC_DT: {
                     $gte: new Date(new Date(fromDate).setHours(00, 00, 00)),
                     $lt: new Date(new Date(toDate).setHours(23, 59, 59))
