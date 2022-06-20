@@ -1,11 +1,6 @@
 const mongoose = require('mongoose')
 const validator = require('validator')
 const jwt = require('jsonwebtoken')
-function formatDate (v) {
-    var d = v.split('-')
-    var r = d[2] + '-' + d[1] + '-' + d[0]
-    return r
-}
 const salesTransactionSchema = new mongoose.Schema({
     SAL_TYPE:{
         type: String,
@@ -18,8 +13,7 @@ const salesTransactionSchema = new mongoose.Schema({
         trim: true
     },
     BILL_DT:{
-        set: formatDate,
-        type: Date,
+        type: String,
         required: true,
         trim: true
     },

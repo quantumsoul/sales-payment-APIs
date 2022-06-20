@@ -13,7 +13,7 @@ const paymentTransactionSchema = new mongoose.Schema({
         trim: true
     },
     DOC_DT:{
-        type: Date,
+        type: String,
         required: true,
         trim: true
     },

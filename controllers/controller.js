@@ -2,6 +2,7 @@ const Salestransaction = require('../models/salesTransaction')
 const Paymenttransaction = require('../models/paymentTransaction')
 const Purchasetransaction = require('../models/purchaseTransaction')
 const User = require('../models/user')
+const compare = require('../utils/dateCompare')
 const jwt = require('jsonwebtoken')
 exports.login = async(req,res)=>{
     const prevuser = await User.findOne({username:req.headers.username,password:req.headers.password})
@@ -66,47 +67,55 @@ exports.postapi = async(req,res)=>{
 exports.getapi = async(req,res)=>{
     try {
         if(req.query.grant_type == "Sales"){
-            var b = req.headers.fromdate.split('-')
-            var fromDate = b[2] + '-' + b[1] + '-' + b[0]
-            var c = req.headers.todate.split('-')
-            var toDate = c[2] + '-' + c[1] + '-' + c[0]
-            const Transactions = await Salestransaction.find({
-                BILL_DT: {
-                    $gte: new Date(new Date(fromDate).setHours(00, 00, 00)),
-                    $lt: new Date(new Date(toDate).setHours(23, 59, 59))
+            const transactions = await Salestransaction.find()
+            var Transactions = []
+            transactions.forEach(t=>{
+                var b = req.headers.fromdate.split('-')
+                var fromDate = b[2] + '-' + b[1] + '-' + b[0]
+                var c = req.headers.todate.split('-')
+                var toDate = c[2] + '-' + c[1] + '-' + c[0]
+                var d = t.BILL_DT.split('-')
+                var date = d[2]+'-'+d[1]+'-'+d[0]
+                if(date<=toDate && date>=fromDate){
+                    Transactions.push(t)
                 }
-            }).sort({ BILL_DT: 'asc'})
-            
+            })
             res.status(201).json({
                 Transactions
             })
         }
         else if(req.query.grant_type == "Payment"){
-            var b = req.headers.fromdate.split('-')
-            var fromDate = b[2] + '-' + b[1] + '-' + b[0]
-            var c = req.headers.todate.split('-')
-            var toDate = c[2] + '-' + c[1] + '-' + c[0]
-            const Transactions = await Paymenttransaction.find({
-                DOC_DT: {
-                    $gte: new Date(new Date(fromDate).setHours(00, 00, 00)),
-                    $lt: new Date(new Date(toDate).setHours(23, 59, 59))
+            var transactions = await Paymenttransaction.find()
+            var Transactions = []
+            transactions.forEach(t=>{
+                var b = req.headers.fromdate.split('-')
+                var fromDate = b[2] + '-' + b[1] + '-' + b[0]
+                var c = req.headers.todate.split('-')
+                var toDate = c[2] + '-' + c[1] + '-' + c[0]
+                var d = t.DOC_DT.split('-')
+                var date = d[2]+'-'+d[1]+'-'+d[0]
+                if(date<=toDate && date>=fromDate){
+                    Transactions.push(t)
                 }
-            }).sort({ DOC_DT: 'asc'})
+            })
             res.status(201).json({
                 Transactions
             })
         }
         else if(req.query.grant_type == "Purchase"){
-            var b = req.headers.fromdate.split('-')
-            var fromDate = b[2] + '-' + b[1] + '-' + b[0]
-            var c = req.headers.todate.split('-')
-            var toDate = c[2] + '-' + c[1] + '-' + c[0]
-            const Transactions = await Purchasetransaction.find({
-                DOCDATE: {
-                    $gte: new Date(new Date(fromDate).setHours(00, 00, 00)),
-                    $lt: new Date(new Date(toDate).setHours(23, 59, 59))
+            var transactions = await Purchasetransaction.find()
+            var Transactions = []
+            transactions.forEach(t=>{
+                var b = req.headers.fromdate.split('-')
+                var fromDate = b[2] + '-' + b[1] + '-' + b[0]
+                var c = req.headers.todate.split('-')
+                var toDate = c[2] + '-' + c[1] + '-' + c[0]
+                var d = t.DOCDATE.split('-')
+                var date = d[2]+'-'+d[1]+'-'+d[0]
+                if(date<=toDate && date>=fromDate){
+                    Transactions.push(t)
                 }
-            }).sort({ DOCDATE: 'asc'})
+            })
             res.status(201).json({
                 Transactions
             })
