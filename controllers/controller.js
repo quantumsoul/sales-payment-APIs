@@ -1,6 +1,7 @@
 const Salestransaction = require('../models/salesTransaction')
 const Paymenttransaction = require('../models/paymentTransaction')
 const Purchasetransaction = require('../models/purchaseTransaction')
+const Recipt = require('../models/recipt')
 const User = require('../models/user')
 const compare = require('../utils/dateCompare')
 const jwt = require('jsonwebtoken')
@@ -60,6 +61,13 @@ exports.postapi = async(req,res)=>{
                 Transaction
             })
         }
+        else if(req.query.grant_type == "Recipt"){
+            const Transaction = new Recipt(req.body)
+            await Transaction.save()
+            res.status(201).json({
+                Transaction
+            })
+        }
     } catch (error) {
         res.status(400).send()
     }
@@ -111,6 +119,24 @@ exports.getapi = async(req,res)=>{
                 var c = req.headers.todate.split('-')
                 var toDate = c[2] + '-' + c[1] + '-' + c[0]
                 var d = t.DOCDATE.split('-')
+                var date = d[2]+'-'+d[1]+'-'+d[0]
+                if(date<=toDate && date>=fromDate){
+                    Transactions.push(t)
+                }
+            })
+            res.status(201).json({
+                Transactions
+            })
+        } 
+        else if(req.query.grant_type == "Recipt"){
+            var transactions = await Recipt.find()
+            var Transactions = []
+            transactions.forEach(t=>{
+                var b = req.headers.fromdate.split('-')
+                var fromDate = b[2] + '-' + b[1] + '-' + b[0]
+                var c = req.headers.todate.split('-')
+                var toDate = c[2] + '-' + c[1] + '-' + c[0]
+                var d = t.DOC_DT.split('-')
                 var date = d[2]+'-'+d[1]+'-'+d[0]
                 if(date<=toDate && date>=fromDate){
                     Transactions.push(t)
