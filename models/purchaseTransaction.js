@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const validator = require('validator')
 const jwt = require('jsonwebtoken')
-const purchaseTransactionSchema = new mongoose.Schema({
+const purchasesSchema = new mongoose.Schema({
     PUR_TYPE:{
         type: String,
         required: true,
@@ -168,5 +168,5 @@ const purchaseTransactionSchema = new mongoose.Schema({
         }
     }]
 },{versionKey:false})
-const Purchasetransaction = mongoose.model("Purchasetransaction",purchaseTransactionSchema);
-module.exports = Purchasetransaction;
+const Purchases = mongoose.model('Purchases', purchasesSchema)
+module.exports = Purchases

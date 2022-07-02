@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const validator = require('validator')
 const jwt = require('jsonwebtoken')
-const salesTransactionSchema = new mongoose.Schema({
+const salesSchema = new mongoose.Schema({
     SAL_TYPE:{
         type: String,
         required: true,
@@ -168,5 +168,7 @@ const salesTransactionSchema = new mongoose.Schema({
         }
     }]
 },{versionKey:false})
-const Salestransaction = mongoose.model("Salestransaction",salesTransactionSchema);
-module.exports = Salestransaction;
+// const Salestransaction = mongoose.model("Salestransaction",salesTransactionSchema);
+// module.exports = Salestransaction;
+const Sales = mongoose.model('Sales', salesSchema)
+module.exports = Sales
