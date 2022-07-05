@@ -96,5 +96,5 @@ const paymentTransactionSchema = new mongoose.Schema({
         }
     ]
 },{versionKey:false})
-const Paymenttransaction = mongoose.model("Paymenttransaction",paymentTransactionSchema);
-module.exports = Paymenttransaction;
+const Payment = mongoose.model("Payment",paymentTransactionSchema);
+module.exports = Payment;
