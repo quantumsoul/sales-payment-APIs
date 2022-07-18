@@ -75,7 +75,7 @@ exports.postapi = async(req,res)=>{
 exports.getapi = async(req,res)=>{
     try {
         if(req.query.grant_type == "Sales"){
-            const transactions = await Salestransaction.find({emailId: req.query.email})
+            const transactions = await Salestransaction.find({emailId: req.query.email},{invoiceStatus:"Reviewed"})
             var Transactions = []
             transactions.forEach(t=>{
                 var b = req.headers.fromdate.split('-')
@@ -111,7 +111,7 @@ exports.getapi = async(req,res)=>{
             })
         }
         else if(req.query.grant_type == "Purchase"){
-            var transactions = await Purchasetransaction.find({emailId: req.query.email})
+            var transactions = await Purchasetransaction.find({emailId: req.query.email},{invoiceStatus:"Reviewed"})
             var Transactions = []
             transactions.forEach(t=>{
                 var b = req.headers.fromdate.split('-')
