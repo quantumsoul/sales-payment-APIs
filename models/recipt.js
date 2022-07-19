@@ -2,6 +2,17 @@ const mongoose = require('mongoose')
 const validator = require('validator')
 const jwt = require('jsonwebtoken')
 const reciptSchema = new mongoose.Schema({
+    emailId:{
+        type: String,
+        req: true
+    },
+    clientId: {
+        type: mongoose.SchemaTypes.ObjectId,
+    },
+    type: {
+        type: String,
+        default: 'Recipt',
+    },
     DOC_TYPE:{
         type: String,
         required: true,
@@ -32,6 +43,12 @@ const reciptSchema = new mongoose.Schema({
         required: true,
         trim: true
     },
+    isDrafted: {
+        type: Boolean,
+    },
+    invoiceStatus: {
+        type: String,
+    },
     Allledgerentries_list:[
         {
             ledger_name:{
@@ -57,17 +74,14 @@ const reciptSchema = new mongoose.Schema({
             billallocation_list:[{
                 reference_name:{
                     type: String,
-                    required: true,
                     trim: true
                 },
                 debit_amount:{
                     type: Number,
-                    required: true,
                     trim: true
                 },
                 credit_amount:{
                     type: Number,
-                    required: true,
                     trim: true
                 }
             }]
@@ -94,7 +108,7 @@ const reciptSchema = new mongoose.Schema({
                 trim: true
             }
         }
-    ]
+    ],
 },{versionKey:false})
 const Recipt = mongoose.model("Recipt",reciptSchema);
 module.exports = Recipt;

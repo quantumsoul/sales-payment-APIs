@@ -6,6 +6,7 @@ const User = require('../models/user')
 const compare = require('../utils/dateCompare')
 const jwt = require('jsonwebtoken')
 exports.login = async(req,res)=>{
+    console.log(req.headers.username)
     const prevuser = await User.findOne({username:req.headers.username,password:req.headers.password})
     if(prevuser!=undefined){
         const token = await prevuser.generateAuthToken()
@@ -75,7 +76,8 @@ exports.postapi = async(req,res)=>{
 exports.getapi = async(req,res)=>{
     try {
         if(req.query.grant_type == "Sales"){
-            const transactions = await Salestransaction.find({emailId: req.query.email})
+            const transactions = await Salestransaction.find()
+            console.log(req.headers.username)
             var Transactions = []
             transactions.forEach(t=>{
                 var b = req.headers.fromdate.split('-')
@@ -84,6 +86,7 @@ exports.getapi = async(req,res)=>{
                 var toDate = c[2] + '-' + c[1] + '-' + c[0]
                 var d = t.BILL_DT.split('-')
                 var date = d[2]+'-'+d[1]+'-'+d[0]
+                console.log(t.Vat5_Amt)
                 if(date<=toDate && date>=fromDate){
                     Transactions.push(t)
                 }

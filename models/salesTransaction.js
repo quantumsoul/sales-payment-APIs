@@ -2,144 +2,142 @@ const mongoose = require('mongoose')
 const validator = require('validator')
 const jwt = require('jsonwebtoken')
 const salesSchema = new mongoose.Schema({
-    SAL_TYPE:{
+    emailId:{
         type: String,
-        required: true,
-        trim: true
+        req: true
+    },
+    clientId: {
+      type: mongoose.SchemaTypes.ObjectId,
+    },
+    type: {
+      type: String,
+      default: 'Sales',
+    },
+    SAL_TYPE:{
+      type: String,
+      trim: true
     },
     FULL_INVO:{
         type: String,
-        required: true,
         trim: true
     },
     BILL_DT:{
         type: String,
-        required: true,
         trim: true
     },
     CUSTOMER:{
         type: String,
-        required: true,
         trim: true
     },
     CUSTOMERCode:{
         type: Number,
-        required: true,
         trim: true
     },
     GroupName:{
         type: String,
-        required: true,
         trim: true
     },
     AddressLine1:{
         type: String,
-        required: true,
         trim: true
     },
     AddressLine2:{
         type: String,
-        required: true,
         trim: true
     },
     AddressLine3:{
         type: String,
-        required: true,
         trim: true
     },
     StateName:{
         type: String,
-        required: true,
         trim: true
     },
     PinCode:{
         type: Number,
-        required: true,
         trim: true
     },
     TRN_No:{
         type: String,
-        required: true,
         trim: true
     },
     PO_No:{
         type: String,
-        required: true,
         trim: true
     },
     TotalInvoice_Amt:{
         type: Number,
-        required: true,
         trim: true
     },
     Discount_Amt:{
         type: Number,
-        required: true,
-        trim: true
+        trim: true,
+        default: 0
     },
     Freight_Amt:{
         type: Number,
-        required: true,
-        trim: true
+        trim: true,
+        default: 0
     },
     OtherCharges_Amt:{
         type: Number,
-        required: true,
-        trim: true
+        trim: true,
+        default: 0
     },
     TotalTax_Amt:{
         type: Number,
-        required: true,
         trim: true
     },
     Vat5_Amt:{
         type: Number,
-        required: true,
         trim: true
     },
     Vat0_Amt:{
         type: Number,
-        required: true,
         trim: true
     },
     Tax_Exempt:{
         type: Boolean,
-        required: true
+        default:false
     },
     Roundoff_amt:{
         type: Number,
-        required: true,
-        trim: true
+        trim: true,
+        default: 0
+    },
+    isDrafted: {
+      type: Boolean,
+    },
+    invoiceStatus: {
+      type: String,
     },
     Itemlist:[{
         Item_name:{
             type: String,
-            required: true,
+
             trim: true
         },
         CODE:{
             type: Number,
-            required: true,
+            default:0,
             trim: true
         },
         PARTNO:{
             type: String,
-            required: true,
+            default:" ",
             trim: true
         },
         UOM:{
             type: String,
-            required: true,
             trim: true
         },
         HSNNo:{
             type: Number,
-            required: true,
             trim: true
         },
         TRNRate:{
             type: Number,
-            required: true,
+            default: 5,
             trim: true
         },
         Batch_name:{
@@ -148,26 +146,35 @@ const salesSchema = new mongoose.Schema({
         },
         QTY:{
             type: Number,
-            required: true,
+
             trim: true
         },
         Rate:{
             type: Number,
-            required: true,
+
             trim: true
         },
         Amount:{
             type: Number,
-            required: true,
+
             trim: true
         },
         Item_Allocation:{
             type: String,
-            required: true,
-            trim: true
+            trim: true,
+            default:" "
         }
-    }]
-},{versionKey:false})
+    }],
+    attachFiles: {
+      type: Array,
+    },
+  },
+  {
+    timestamps: true,
+  },
+  {
+    versionKey:false
+  })
 // const Salestransaction = mongoose.model("Salestransaction",salesTransactionSchema);
 // module.exports = Salestransaction;
 const Sales = mongoose.model('Sales', salesSchema)
