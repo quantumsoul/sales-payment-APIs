@@ -76,7 +76,7 @@ exports.postapi = async(req,res)=>{
 exports.getapi = async(req,res)=>{
     try {
         if(req.query.grant_type == "Sales"){
-            const transactions = await Salestransaction.find()
+            const transactions = await Salestransaction.find({emailId: req.headers.username})
             console.log(req.headers.username)
             var Transactions = []
             transactions.forEach(t=>{
