@@ -76,7 +76,7 @@ exports.postapi = async(req,res)=>{
 exports.getapi = async(req,res)=>{
     try {
         if(req.query.grant_type == "Sales"){
-            const transactions = await Salestransaction.find({emailId: req.headers.username})
+            const transactions = await Salestransaction.find({emailId: req.headers.username},{invoiceStatus:"Reviewed"})
             console.log(req.headers.username)
             var Transactions = []
             transactions.forEach(t=>{
@@ -86,7 +86,6 @@ exports.getapi = async(req,res)=>{
                 var toDate = c[2] + '-' + c[1] + '-' + c[0]
                 var d = t.BILL_DT.split('-')
                 var date = d[2]+'-'+d[1]+'-'+d[0]
-                console.log(t.Vat5_Amt)
                 if(date<=toDate && date>=fromDate){
                     Transactions.push(t)
                 }
@@ -96,7 +95,7 @@ exports.getapi = async(req,res)=>{
             })
         }
         else if(req.query.grant_type == "Payment"){
-            var transactions = await Paymenttransaction.find({emailId: req.query.email})
+            var transactions = await Paymenttransaction.find({emailId: req.headers.username})
             var Transactions = []
             transactions.forEach(t=>{
                 var b = req.headers.fromdate.split('-')
@@ -114,7 +113,7 @@ exports.getapi = async(req,res)=>{
             })
         }
         else if(req.query.grant_type == "Purchase"){
-            var transactions = await Purchasetransaction.find({emailId: req.query.email},{invoiceStatus:"Reviewed"})
+            var transactions = await Purchasetransaction.find({emailId: req.headers.username},{invoiceStatus:"Reviewed"})
             var Transactions = []
             transactions.forEach(t=>{
                 var b = req.headers.fromdate.split('-')
@@ -132,7 +131,7 @@ exports.getapi = async(req,res)=>{
             })
         } 
         else if(req.query.grant_type == "Recipt"){
-            var transactions = await Recipt.find({emailId: req.query.email})
+            var transactions = await Recipt.find({emailId: req.headers.username})
             var Transactions = []
             transactions.forEach(t=>{
                 var b = req.headers.fromdate.split('-')
