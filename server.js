@@ -21,7 +21,7 @@ mongoose
 
 const PORT = process.env.PORT || 8000;
 app.get("/", (req, res) => {
-  res.json({ message: "Welcome to AYS backend", device: req.device });
+  res.json({ message: "Welcome to AYS  backend", device: req.device });
 });
 app.listen(PORT, () => {
   console.log("Server listening on port", PORT);
