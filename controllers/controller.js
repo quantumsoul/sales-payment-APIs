@@ -81,7 +81,7 @@ exports.getapi = async (req, res) => {
         emailId: req.headers.username,
         invoiceStatus: "Reviewed",
       });
-      console.log(req.headers.username);
+      // console.log(req.headers.username);
       var Transactions = [];
       transactions.forEach((t) => {
         var b = req.headers.fromdate.split("-");
@@ -100,16 +100,20 @@ exports.getapi = async (req, res) => {
     } else if (req.query.grant_type == "Payment") {
       var transactions = await Paymenttransaction.find({
         emailId: req.headers.username,
+        invoiceStatus: "Reviewed",
       });
-      console.log(req.headers.username);
+      // console.log(req.headers.username);
       var Transactions = [];
       transactions.forEach((t) => {
         var b = req.headers.fromdate.split("-");
-        var fromDate = b[2] + "-" + b[1] + "-" + b[0];
+        var fromDate = b[0] + "-" + b[1] + "-" + b[2];
         var c = req.headers.todate.split("-");
-        var toDate = c[2] + "-" + c[1] + "-" + c[0];
+        var toDate = c[0] + "-" + c[1] + "-" + c[2];
         var d = t.DOC_DT.split("-");
-        var date = d[2] + "-" + d[1] + "-" + d[0];
+        var date = d[0] + "-" + d[1] + "-" + d[2];
+
+        console.log(date);
+
         if (date <= toDate && date >= fromDate) {
           Transactions.push(t);
         }
