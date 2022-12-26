@@ -50,6 +50,17 @@ const paymentTransactionSchema = new mongoose.Schema(
     invoiceStatus: {
       type: String,
     },
+    PaymentsId: {
+      type: String,
+    },
+    isDeleted: {
+      type: Boolean,
+      default: false,
+    },
+    openingBalance: {
+      type: Number,
+      trim: true,
+    },
     Allledgerentries_list: [
       {
         ledger_name: {

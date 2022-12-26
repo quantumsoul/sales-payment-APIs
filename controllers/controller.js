@@ -3,8 +3,8 @@ const Paymenttransaction = require("../models/paymentTransaction");
 const Purchasetransaction = require("../models/purchaseTransaction");
 const Recipt = require("../models/recipt");
 const User = require("../models/user");
-const compare = require("../utils/dateCompare");
-const jwt = require("jsonwebtoken");
+// const compare = require("../utils/dateCompare");
+// const jwt = require("jsonwebtoken");
 exports.login = async (req, res) => {
   console.log(req.headers.username);
   const prevuser = await User.findOne({
@@ -81,15 +81,19 @@ exports.getapi = async (req, res) => {
         emailId: req.headers.username,
         invoiceStatus: "Reviewed",
       });
-      // console.log(req.headers.username);
+      console.log(req.headers.username);
+      console.log(transactions);
       var Transactions = [];
       transactions.forEach((t) => {
         var b = req.headers.fromdate.split("-");
+        console.log(b);
         var fromDate = b[2] + "-" + b[1] + "-" + b[0];
+        console.log(fromDate);
         var c = req.headers.todate.split("-");
         var toDate = c[2] + "-" + c[1] + "-" + c[0];
         var d = t.BILL_DT.split("-");
         var date = d[2] + "-" + d[1] + "-" + d[0];
+        console.log(date);
         if (date <= toDate && date >= fromDate) {
           Transactions.push(t);
         }
