@@ -146,7 +146,10 @@ exports.getapi = async (req, res) => {
         Transactions,
       });
     } else if (req.query.grant_type == "Recipt") {
-      var transactions = await Recipt.find({ emailId: req.headers.username });
+      var transactions = await Recipt.find({
+        emailId: req.headers.username,
+        invoiceStatus: "Reviewed",
+      });
       var Transactions = [];
       transactions.forEach((t) => {
         var b = req.headers.fromdate.split("-");
