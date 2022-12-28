@@ -169,7 +169,7 @@ const salesSchema = new mongoose.Schema(
           type: String,
           trim: true,
         },
-        QTY: {
+        Qty: {
           type: Number,
 
           trim: true,
