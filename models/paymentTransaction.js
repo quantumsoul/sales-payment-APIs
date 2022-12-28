@@ -20,8 +20,8 @@ const paymentTransactionSchema = new mongoose.Schema(
       trim: true,
     },
     DOC_NO: {
-      type: Number,
-      default: 1,
+      type: String,
+      default: "R1",
       trim: true,
     },
     DOC_DT: {
@@ -30,8 +30,8 @@ const paymentTransactionSchema = new mongoose.Schema(
       trim: true,
     },
     Instrument_No: {
-      type: Number,
-      default: 1,
+      type: String,
+      default: "R1",
       trim: true,
     },
     Instrument_Dt: {
