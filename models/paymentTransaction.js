@@ -21,7 +21,7 @@ const paymentTransactionSchema = new mongoose.Schema(
     },
     DOC_NO: {
       type: Number,
-
+      default: 1,
       trim: true,
     },
     DOC_DT: {
@@ -31,7 +31,7 @@ const paymentTransactionSchema = new mongoose.Schema(
     },
     Instrument_No: {
       type: Number,
-
+      default: 1,
       trim: true,
     },
     Instrument_Dt: {
