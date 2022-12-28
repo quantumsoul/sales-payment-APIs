@@ -34,10 +34,6 @@ const purchasesSchema = new mongoose.Schema(
       type: String,
       trim: true,
     },
-    CUSTOMERCode: {
-      type: Number,
-      trim: true,
-    },
     GroupName: {
       type: String,
       trim: true,
