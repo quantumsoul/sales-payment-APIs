@@ -34,10 +34,8 @@ const reciptSchema = new mongoose.Schema(
       default: "R1",
       trim: true,
     },
-    Instrument_Dt: {
+    billId: {
       type: String,
-      required: true,
-      trim: true,
     },
     Narration: {
       type: String,

@@ -34,6 +34,9 @@ const paymentTransactionSchema = new mongoose.Schema(
       default: "R1",
       trim: true,
     },
+    billId: {
+      type: String,
+    },
     Instrument_Dt: {
       type: String,
 
