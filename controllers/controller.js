@@ -87,12 +87,12 @@ exports.getapi = async (req, res) => {
       transactions.forEach((t) => {
         var b = req.headers.fromdate.split("-");
         console.log(b);
-        var fromDate = b[2] + "-" + b[1] + "-" + b[0];
+        var fromDate = new Date(b[2] + "-" + b[1] + "-" + b[0]);
         console.log(fromDate);
         var c = req.headers.todate.split("-");
-        var toDate = c[2] + "-" + c[1] + "-" + c[0];
+        var toDate = new Date(c[2] + "-" + c[1] + "-" + c[0]);
         var d = t.BILL_DT.split("-");
-        var date = d[2] + "-" + d[1] + "-" + d[0];
+        var date = new Date(d[2] + "-" + d[1] + "-" + d[0]);
         console.log(date);
         if (date <= toDate && date >= fromDate) {
           Transactions.push(t);
@@ -110,11 +110,11 @@ exports.getapi = async (req, res) => {
       var Transactions = [];
       transactions.forEach((t) => {
         var b = req.headers.fromdate.split("-");
-        var fromDate = b[0] + "-" + b[1] + "-" + b[2];
+        var fromDate = new Date(b[2] + "-" + b[1] + "-" + b[0]);
         var c = req.headers.todate.split("-");
-        var toDate = c[0] + "-" + c[1] + "-" + c[2];
+        var toDate = new Date(c[2] + "-" + c[1] + "-" + c[0]);
         var d = t.DOC_DT.split("-");
-        var date = d[0] + "-" + d[1] + "-" + d[2];
+        var date = new Date(d[2] + "-" + d[1] + "-" + d[0]);
 
         console.log(date);
 
@@ -133,11 +133,11 @@ exports.getapi = async (req, res) => {
       var Transactions = [];
       transactions.forEach((t) => {
         var b = req.headers.fromdate.split("-");
-        var fromDate = b[2] + "-" + b[1] + "-" + b[0];
+        var fromDate = new Date(b[2] + "-" + b[1] + "-" + b[0]);
         var c = req.headers.todate.split("-");
-        var toDate = c[2] + "-" + c[1] + "-" + c[0];
+        var toDate = new Date(c[2] + "-" + c[1] + "-" + c[0]);
         var d = t.DOCDATE.split("-");
-        var date = d[2] + "-" + d[1] + "-" + d[0];
+        var date = new Date(d[2] + "-" + d[1] + "-" + d[0]);
         if (date <= toDate && date >= fromDate) {
           Transactions.push(t);
         }
@@ -153,11 +153,11 @@ exports.getapi = async (req, res) => {
       var Transactions = [];
       transactions.forEach((t) => {
         var b = req.headers.fromdate.split("-");
-        var fromDate = b[2] + "-" + b[1] + "-" + b[0];
+        var fromDate = new Date(b[2] + "-" + b[1] + "-" + b[0]);
         var c = req.headers.todate.split("-");
-        var toDate = c[2] + "-" + c[1] + "-" + c[0];
+        var toDate = new Date(c[2] + "-" + c[1] + "-" + c[0]);
         var d = t.DOC_DT.split("-");
-        var date = d[2] + "-" + d[1] + "-" + d[0];
+        var date = new Date(d[2] + "-" + d[1] + "-" + d[0]);
         if (date <= toDate && date >= fromDate) {
           Transactions.push(t);
         }
