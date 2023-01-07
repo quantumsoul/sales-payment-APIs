@@ -2,6 +2,7 @@ const Salestransaction = require("../models/salesTransaction");
 const Paymenttransaction = require("../models/paymentTransaction");
 const Purchasetransaction = require("../models/purchaseTransaction");
 const Recipt = require("../models/recipt");
+const Journal = require("../models/journalTransactions");
 const User = require("../models/user");
 // const compare = require("../utils/dateCompare");
 // const jwt = require("jsonwebtoken");
@@ -149,6 +150,25 @@ exports.getapi = async (req, res) => {
       var transactions = await Recipt.find({
         emailId: req.headers.username,
         invoiceStatus: "Reviewed",
+      });
+      var Transactions = [];
+      transactions.forEach((t) => {
+        var b = req.headers.fromdate.split("-");
+        var fromDate = new Date(b[2] + "-" + b[1] + "-" + b[0]);
+        var c = req.headers.todate.split("-");
+        var toDate = new Date(c[2] + "-" + c[1] + "-" + c[0]);
+        var d = t.DOC_DT.split("-");
+        var date = new Date(d[2] + "-" + d[1] + "-" + d[0]);
+        if (date <= toDate && date >= fromDate) {
+          Transactions.push(t);
+        }
+      });
+      res.status(201).json({
+        Transactions,
+      });
+    } else if (req.query.grant_type == "Journal") {
+      var transactions = await Journal.find({
+        emailId: req.headers.username,
       });
       var Transactions = [];
       transactions.forEach((t) => {
