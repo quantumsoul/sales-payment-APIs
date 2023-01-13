@@ -7,12 +7,13 @@ const User = require("../models/user");
 // const compare = require("../utils/dateCompare");
 // const jwt = require("jsonwebtoken");
 exports.login = async (req, res) => {
-  console.log(req.headers.username);
+  // console.log(req.headers.username);
   const prevuser = await User.findOne({
     username: req.headers.username,
     password: req.headers.password,
   });
   if (prevuser != undefined) {
+    console.log(req.headers.username);
     const token = await prevuser.generateAuthToken();
     res.status(200).send({
       access_token: `${token}`,
@@ -20,21 +21,29 @@ exports.login = async (req, res) => {
       message: "token generated successfully",
     });
   } else {
-    const user = new User({
-      username: req.headers.username,
-      password: req.headers.password,
+    console.log("User not found");
+    res.status(400).send({
+      error: "User not found",
+      success: false,
     });
-    try {
-      await user.save();
-      const token = await user.generateAuthToken();
-      res.status(200).send({
-        access_token: `${token}`,
-        token_type: "bearer",
-        message: "token generated successfully",
-      });
-    } catch (error) {
-      res.status(400);
-    }
+    // const user = new User({
+    //   username: req.headers.username,
+    //   password: req.headers.password,
+    // });
+    // try {
+    //   await user.save();
+    //   const token = await user.generateAuthToken();
+    //   res.status(200).send({
+    //     access_token: `${token}`,
+    //     token_type: "bearer",
+    //     message: "token generated successfully",
+    //   });
+    // } catch (error) {
+    //   res.status(400).send({
+    //     error,
+    //     success: false,
+    //   });
+    // }
   }
 };
 exports.loginInfo = async (req, res) => {
