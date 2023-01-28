@@ -142,6 +142,10 @@ const salesSchema = new mongoose.Schema(
 
           trim: true,
         },
+        Item_type: {
+          type: String,
+          trim: true,
+        },
         CODE: {
           type: Number,
           default: 0,
