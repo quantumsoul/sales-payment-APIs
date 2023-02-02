@@ -12,6 +12,7 @@ exports.login = async (req, res) => {
     username: req.headers.username,
     password: req.headers.password,
   });
+  // console.log(prevuser);
   if (prevuser != undefined) {
     console.log(req.headers.username);
     const token = await prevuser.generateAuthToken();
@@ -21,29 +22,26 @@ exports.login = async (req, res) => {
       message: "token generated successfully",
     });
   } else {
-    console.log("User not found");
-    res.status(400).send({
-      error: "User not found",
-      success: false,
-    });
-    // const user = new User({
-    //   username: req.headers.username,
-    //   password: req.headers.password,
+    // console.log("User not found");
+    // res.status(400).send({
+    //   error: "User not found",
+    //   success: false,
     // });
-    // try {
-    //   await user.save();
-    //   const token = await user.generateAuthToken();
-    //   res.status(200).send({
-    //     access_token: `${token}`,
-    //     token_type: "bearer",
-    //     message: "token generated successfully",
-    //   });
-    // } catch (error) {
-    //   res.status(400).send({
-    //     error,
-    //     success: false,
-    //   });
-    // }
+    const user = new User({
+      username: req.headers.username,
+      password: req.headers.password,
+    });
+    try {
+      await user.save();
+      const token = await user.generateAuthToken();
+      res.status(200).send({
+        access_token: `${token}`,
+        token_type: "bearer",
+        message: "token generated successfully",
+      });
+    } catch (error) {
+      res.status(400);
+    }
   }
 };
 exports.loginInfo = async (req, res) => {
