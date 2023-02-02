@@ -129,16 +129,16 @@ exports.getapi = async (req, res) => {
       console.log(transactions);
       var Transactions = [];
       transactions.forEach((t) => {
-        var b = req.headers.fromdate.split("-");
+        var b = req.headers.FromDate.split("-");
         console.log(b);
-        var fromDate = new Date(b[2] + "-" + b[1] + "-" + b[0]);
-        console.log(fromDate);
-        var c = req.headers.todate.split("-");
-        var toDate = new Date(c[2] + "-" + c[1] + "-" + c[0]);
+        var FromDate = new Date(b[2] + "-" + b[1] + "-" + b[0]);
+        console.log(FromDate);
+        var c = req.headers.ToDate.split("-");
+        var ToDate = new Date(c[2] + "-" + c[1] + "-" + c[0]);
         var d = t.BILL_DT.split("-");
         var date = new Date(d[2] + "-" + d[1] + "-" + d[0]);
-        console.log(date);
-        if (date <= toDate && date >= fromDate) {
+
+        if (date <= ToDate && date >= FromDate) {
           Transactions.push(t);
         }
       });
@@ -153,16 +153,16 @@ exports.getapi = async (req, res) => {
       // console.log(req.headers.username);
       var Transactions = [];
       transactions.forEach((t) => {
-        var b = req.headers.fromdate.split("-");
-        var fromDate = new Date(b[2] + "-" + b[1] + "-" + b[0]);
-        var c = req.headers.todate.split("-");
-        var toDate = new Date(c[2] + "-" + c[1] + "-" + c[0]);
+        var b = req.headers.FromDate.split("-");
+        var FromDate = new Date(b[2] + "-" + b[1] + "-" + b[0]);
+        var c = req.headers.ToDate.split("-");
+        var ToDate = new Date(c[2] + "-" + c[1] + "-" + c[0]);
         var d = t.DOC_DT.split("-");
         var date = new Date(d[2] + "-" + d[1] + "-" + d[0]);
 
         console.log(date);
 
-        if (date <= toDate && date >= fromDate) {
+        if (date <= ToDate && date >= FromDate) {
           Transactions.push(t);
         }
       });
@@ -176,13 +176,13 @@ exports.getapi = async (req, res) => {
       });
       var Transactions = [];
       transactions.forEach((t) => {
-        var b = req.headers.fromdate.split("-");
-        var fromDate = new Date(b[2] + "-" + b[1] + "-" + b[0]);
-        var c = req.headers.todate.split("-");
-        var toDate = new Date(c[2] + "-" + c[1] + "-" + c[0]);
+        var b = req.headers.FromDate.split("-");
+        var FromDate = new Date(b[2] + "-" + b[1] + "-" + b[0]);
+        var c = req.headers.ToDate.split("-");
+        var ToDate = new Date(c[2] + "-" + c[1] + "-" + c[0]);
         var d = t.DOCDATE.split("-");
         var date = new Date(d[2] + "-" + d[1] + "-" + d[0]);
-        if (date <= toDate && date >= fromDate) {
+        if (date <= ToDate && date >= FromDate) {
           Transactions.push(t);
         }
       });
@@ -196,13 +196,13 @@ exports.getapi = async (req, res) => {
       });
       var Transactions = [];
       transactions.forEach((t) => {
-        var b = req.headers.fromdate.split("-");
-        var fromDate = new Date(b[2] + "-" + b[1] + "-" + b[0]);
-        var c = req.headers.todate.split("-");
-        var toDate = new Date(c[2] + "-" + c[1] + "-" + c[0]);
+        var b = req.headers.FromDate.split("-");
+        var FromDate = new Date(b[2] + "-" + b[1] + "-" + b[0]);
+        var c = req.headers.ToDate.split("-");
+        var ToDate = new Date(c[2] + "-" + c[1] + "-" + c[0]);
         var d = t.DOC_DT.split("-");
         var date = new Date(d[2] + "-" + d[1] + "-" + d[0]);
-        if (date <= toDate && date >= fromDate) {
+        if (date <= ToDate && date >= FromDate) {
           Transactions.push(t);
         }
       });
@@ -215,13 +215,13 @@ exports.getapi = async (req, res) => {
       });
       var Transactions = [];
       transactions.forEach((t) => {
-        var b = req.headers.fromdate.split("-");
-        var fromDate = new Date(b[2] + "-" + b[1] + "-" + b[0]);
-        var c = req.headers.todate.split("-");
-        var toDate = new Date(c[2] + "-" + c[1] + "-" + c[0]);
+        var b = req.headers.FromDate.split("-");
+        var FromDate = new Date(b[2] + "-" + b[1] + "-" + b[0]);
+        var c = req.headers.ToDate.split("-");
+        var ToDate = new Date(c[2] + "-" + c[1] + "-" + c[0]);
         var d = t.DOC_DT.split("-");
         var date = new Date(d[2] + "-" + d[1] + "-" + d[0]);
-        if (date <= toDate && date >= fromDate) {
+        if (date <= ToDate && date >= FromDate) {
           Transactions.push(t);
         }
       });
