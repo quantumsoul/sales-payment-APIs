@@ -4,45 +4,81 @@ const Purchasetransaction = require("../models/purchaseTransaction");
 const Recipt = require("../models/recipt");
 const Journal = require("../models/journalTransactions");
 const User = require("../models/user");
+const Users = require("../models/client");
 // const compare = require("../utils/dateCompare");
 // const jwt = require("jsonwebtoken");
 exports.login = async (req, res) => {
   // console.log(req.headers.username);
-  const prevuser = await User.findOne({
-    username: req.headers.username,
-    password: req.headers.password,
+  const prevuser = await Users.findOne({
+    email: req.headers.username,
   });
-  // console.log(prevuser);
-  if (prevuser != undefined) {
-    console.log(req.headers.username);
-    const token = await prevuser.generateAuthToken();
-    res.status(200).send({
-      access_token: `${token}`,
-      token_type: "bearer",
-      message: "token generated successfully",
-    });
-  } else {
-    // console.log("User not found");
-    // res.status(400).send({
-    //   error: "User not found",
-    //   success: false,
-    // });
-    const user = new User({
+  console.log(prevuser);
+  if (prevuser) {
+    const prev = await User.findOne({
       username: req.headers.username,
       password: req.headers.password,
     });
-    try {
-      await user.save();
-      const token = await user.generateAuthToken();
+    console.log(prev);
+    if (prev != undefined) {
+      const token = await prev.generateAuthToken();
       res.status(200).send({
         access_token: `${token}`,
         token_type: "bearer",
         message: "token generated successfully",
       });
-    } catch (error) {
-      res.status(400);
+    } else {
+      const Newuser = new User({
+        username: req.headers.username,
+        password: req.headers.password,
+      });
+      try {
+        await Newuser.save();
+        const token = await Newuser.generateAuthToken();
+        res.status(200).send({
+          access_token: `${token}`,
+          token_type: "bearer",
+          message: "token generated successfully",
+        });
+      } catch (error) {
+        res.status(400);
+      }
     }
+  } else {
+    console.log("User not found");
+    res.status(400).send({
+      error: "User not found",
+      success: false,
+    });
   }
+  // if (prevuser != undefined) {
+  //   console.log(req.headers.username);
+  //   const token = await prevuser.generateAuthToken();
+  //   res.status(200).send({
+  //     access_token: `${token}`,
+  //     token_type: "bearer",
+  //     message: "token generated successfully",
+  //   });
+  // } else {
+  //   console.log("User not found");
+  //   res.status(400).send({
+  //     error: "User not found",
+  //     success: false,
+  //   });
+  // const user = new User({
+  //   username: req.headers.username,
+  //   password: req.headers.password,
+  // });
+  // try {
+  //   await user.save();
+  //   const token = await user.generateAuthToken();
+  //   res.status(200).send({
+  //     access_token: `${token}`,
+  //     token_type: "bearer",
+  //     message: "token generated successfully",
+  //   });
+  // } catch (error) {
+  //   res.status(400);
+  // }
 };
 exports.loginInfo = async (req, res) => {
   try {
