@@ -119,29 +119,31 @@ exports.postapi = async (req, res) => {
   }
 };
 exports.getapi = async (req, res) => {
+  console.log(req.headers);
+
   try {
     if (req.query.grant_type == "Sales") {
       const transactions = await Salestransaction.find({
         emailId: req.headers.username,
         invoiceStatus: "Reviewed",
       });
-      console.log(req.headers.username);
       console.log(transactions);
       var Transactions = [];
       transactions.forEach((t) => {
         var b = req.headers.fromdate.split("-");
-        console.log(b);
+
         var fromDate = new Date(b[2] + "-" + b[1] + "-" + b[0]);
-        console.log(fromDate);
+
         var c = req.headers.todate.split("-");
         var toDate = new Date(c[2] + "-" + c[1] + "-" + c[0]);
         var d = t.BILL_DT.split("-");
         var date = new Date(d[2] + "-" + d[1] + "-" + d[0]);
-        console.log(date);
+
         if (date <= toDate && date >= fromDate) {
           Transactions.push(t);
         }
       });
+
       res.status(201).json({
         Transactions,
       });
@@ -150,7 +152,7 @@ exports.getapi = async (req, res) => {
         emailId: req.headers.username,
         invoiceStatus: "Reviewed",
       });
-      // console.log(req.headers.username);
+      console.log(transactions);
       var Transactions = [];
       transactions.forEach((t) => {
         var b = req.headers.fromdate.split("-");
@@ -160,12 +162,11 @@ exports.getapi = async (req, res) => {
         var d = t.DOC_DT.split("-");
         var date = new Date(d[2] + "-" + d[1] + "-" + d[0]);
 
-        console.log(date);
-
         if (date <= toDate && date >= fromDate) {
           Transactions.push(t);
         }
       });
+
       res.status(201).json({
         Transactions,
       });
@@ -174,6 +175,7 @@ exports.getapi = async (req, res) => {
         emailId: req.headers.username,
         invoiceStatus: "Reviewed",
       });
+      console.log(transactions);
       var Transactions = [];
       transactions.forEach((t) => {
         var b = req.headers.fromdate.split("-");
@@ -186,6 +188,7 @@ exports.getapi = async (req, res) => {
           Transactions.push(t);
         }
       });
+
       res.status(201).json({
         Transactions,
       });
@@ -194,6 +197,7 @@ exports.getapi = async (req, res) => {
         emailId: req.headers.username,
         invoiceStatus: "Reviewed",
       });
+      console.log(transactions);
       var Transactions = [];
       transactions.forEach((t) => {
         var b = req.headers.fromdate.split("-");
@@ -213,6 +217,7 @@ exports.getapi = async (req, res) => {
       var transactions = await Journal.find({
         emailId: req.headers.username,
       });
+      console.log(transactions);
       var Transactions = [];
       transactions.forEach((t) => {
         var b = req.headers.fromdate.split("-");
